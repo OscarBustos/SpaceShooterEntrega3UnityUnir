@@ -5,6 +5,9 @@ using UnityEngine.Scripting.APIUpdating;
 
 public class Player : MonoBehaviour
 {
+    [Header("Player")]
+    [SerializeField] int lives;
+    
     [Header("Managers")]
     [SerializeField] GameManagerSO gameManager;
     [SerializeField] BulletManagerSO bulletManager;
@@ -43,6 +46,7 @@ public class Player : MonoBehaviour
         }
     }
 
+    #region Methods
     private void Move()
     {
         verticalDirection = Input.GetAxisRaw("Vertical");
@@ -74,4 +78,16 @@ public class Player : MonoBehaviour
             shootingTime = 0;
         }
     }
+    #endregion
+
+    #region Collisions
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        if(collision.CompareTag("EnemyBullet") || collision.CompareTag("Enemy"))
+        {
+            lives--;
+            collision.gameObject.SetActive(false);
+        }
+    }
+    #endregion
 }

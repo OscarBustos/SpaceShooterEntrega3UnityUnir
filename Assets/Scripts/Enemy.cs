@@ -21,20 +21,8 @@ public class Enemy : MonoBehaviour
 
     public EnemyType EnemyType { get => enemyType; }
 
-    void Start()
-    {
-        if (shoot)
-        {
-            if (!bulletManager.IsInitialized)
-            {
-                bulletManager.Init();
-            }
-            InvokeRepeating("Shoot", startShootingAfterSeconds, fireRate);
-        }
-        
-    }
 
-    // Update is called once per frame
+    #region Methods
     void Update()
     {
         transform.Translate(direction.normalized * speed * Time.deltaTime);
@@ -46,4 +34,31 @@ public class Enemy : MonoBehaviour
     }
 
 
+    public void Spawn(Vector2 position)
+    {
+        transform.position = position;
+        gameObject.SetActive(true);
+        if (shoot)
+        {
+            if (!bulletManager.IsInitialized)
+            {
+                bulletManager.Init();
+            }
+            InvokeRepeating("Shoot", startShootingAfterSeconds, fireRate);
+        }
+    }
+    #endregion
+
+    #region Collisions
+
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        if (collision.CompareTag("PlayerBullet") || collision.CompareTag("Bounds"))
+        {
+            transform.position = Vector2.zero;
+            gameObject.SetActive(false);
+        }
+        
+    }
+    #endregion
 }

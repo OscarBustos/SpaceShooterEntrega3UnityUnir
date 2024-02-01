@@ -29,8 +29,11 @@ public class Bullet : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        move = false;
-        transform.position = Vector2.zero;
-        gameObject.SetActive(false);
+        if (collision.CompareTag("Bounds"))
+        {
+            move = false;
+            transform.position = Vector2.zero;
+            gameObject.SetActive(false);
+        }
     }
 }

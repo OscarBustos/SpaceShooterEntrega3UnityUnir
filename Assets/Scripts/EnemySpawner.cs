@@ -29,6 +29,7 @@ public class EnemySpawner : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        enemyManager.Init();
         StartCoroutine(SpawnEnemies());
     }
 
@@ -46,7 +47,7 @@ public class EnemySpawner : MonoBehaviour
             {
                 float yPosition = Random.Range(minY, maxY);
                 transform.position = new Vector2(transform.position.x, yPosition);
-                enemyManager.Spawn(transform.position);
+                enemyManager.Spawn(transform.position, EnemyType.SIMPLE);
                 yield return new WaitForSeconds(timeBetweenEnemies);
             }
             yield return new WaitForSeconds(timeBetweenWaves);
