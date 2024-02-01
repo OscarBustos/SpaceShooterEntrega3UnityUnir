@@ -6,6 +6,7 @@ public class EnemySpawner : MonoBehaviour
 {
     [SerializeField] GameManagerSO gameManager;
     [SerializeField] EnemyManagerSO enemyManager;
+    [SerializeField] float startSpawningAfter;
 
     [Header("Movement")]
     [SerializeField] float minY;
@@ -41,6 +42,7 @@ public class EnemySpawner : MonoBehaviour
 
     private IEnumerator SpawnEnemies()
     {
+        yield return new WaitForSeconds(startSpawningAfter);
         for(int i = 0; i < waves; i++)
         {
             for(int j = 0; j < enemiesByWave; j++)
