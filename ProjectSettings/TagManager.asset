@@ -3,15 +3,19 @@
 --- !u!78 &1
 TagManager:
   serializedVersion: 2
-  tags: []
+  tags:
+  - PlayerBullet
+  - Enemy
+  - EnemyBullet
+  - Bounds
   layers:
   - Default
   - TransparentFX
   - Ignore Raycast
-  - 
+  - Bounds
   - Water
   - UI
-  - 
+  - Bullet
   - 
   - 
   - 

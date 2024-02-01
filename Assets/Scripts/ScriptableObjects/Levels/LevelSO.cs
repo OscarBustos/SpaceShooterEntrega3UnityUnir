@@ -1,0 +1,22 @@
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+
+[CreateAssetMenu(fileName = "Level", menuName = "Gameplay/Level")]
+public class LevelSO : ScriptableObject
+{
+    [SerializeField] private string levelName;
+    [SerializeField] private int waves;
+    [SerializeField] private float timeBetweenWaves;
+    [SerializeField] private int enemiesByWave;
+    [SerializeField] private float timeBetweenEnemies;
+    [SerializeField] private float enemySpeedMultiplier;
+
+    public int Waves { get => waves; }
+    public float TimeBetweenWaves { get => timeBetweenWaves; }
+    public int EnemiesByWave { get => enemiesByWave; }
+    public float TimeBetweenEnemies { get => timeBetweenEnemies; }
+    public float EnemySpeedMultiplier { get => enemySpeedMultiplier; }
+
+
+}
