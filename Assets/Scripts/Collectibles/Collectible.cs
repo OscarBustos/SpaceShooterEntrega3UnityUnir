@@ -12,6 +12,8 @@ public class Collectible : MonoBehaviour
     [SerializeField] private int amount;
     [SerializeField] private Vector2 direction;
     [SerializeField] private float speed;
+    [SerializeField] private Vector3 rotationDirection;
+    [SerializeField] private float rotationSpeed;
     private TextMeshProUGUI amountText;
     public CollectibleType CollectibleType { get => collectibleType; }
     public int Amount { get => amount; }
@@ -22,13 +24,17 @@ public class Collectible : MonoBehaviour
     }
     void Update()
     {
-        transform.Translate(direction * speed * Time.deltaTime);
+        transform.Translate(direction * speed * Time.deltaTime, Space.World);
+        transform.Rotate(rotationDirection * rotationSpeed * Time.deltaTime, Space.Self);
     }
 
     public void Spawn(Vector2 position,int amount)
     {
         this.amount = amount;
-        amountText.text = amount.ToString();
+        if(amountText != null)
+        {
+            amountText.text = amount.ToString();
+        }
         transform.position = position;
         gameObject.SetActive(true);
     }

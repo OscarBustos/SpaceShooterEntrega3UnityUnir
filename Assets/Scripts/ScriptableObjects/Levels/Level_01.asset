@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   levelName: Level 1
   waves: 3
-  timeBetweenWaves: 2
+  timeBetweenWaves: 3
   enemiesByWave: 10
   timeBetweenEnemies: 1
   enemySpeedMultiplier: 1

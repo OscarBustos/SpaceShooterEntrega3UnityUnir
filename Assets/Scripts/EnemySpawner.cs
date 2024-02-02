@@ -42,21 +42,28 @@ public class EnemySpawner : MonoBehaviour
 
     private IEnumerator SpawnEnemies()
     {
+        levelManager.CurrentWave = 1;
+        gameManager.ChangeWave();
         yield return new WaitForSeconds(startSpawningAfter);
         for(int i = 0; i < waves; i++)
         {
-            levelManager.CurrentWave = i + 1;
+            
             for (int j = 0; j < enemiesByWave; j++)
             {
                 float yPosition = Random.Range(minY, maxY);
                 transform.position = new Vector2(transform.position.x, yPosition);
                 enemyManager.Spawn(transform.position, EnemyType.SIMPLE);
                 yield return new WaitForSeconds(timeBetweenEnemies);
+                
             }
-            yield return new WaitForSeconds(timeBetweenWaves);
-        }
-
             
-        
+            if(levelManager.CurrentWave < waves)
+            {
+                levelManager.CurrentWave++;
+                gameManager.ChangeWave();
+            }
+            yield return new WaitForSeconds(timeBetweenWaves);   
+        }
+        levelManager.NextLevel();                  
     }
 }

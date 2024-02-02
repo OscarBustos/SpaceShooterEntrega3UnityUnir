@@ -41,7 +41,6 @@ public class CollectibleManagerSO : ScriptableObject
             Init();
         }
         int randomValue = Random.Range(0, 100);
-        
         for(int i = 0; i < prefabSpawnProbability.Length; i++)
         {
             int prefabProbability = prefabSpawnProbability[i];
@@ -52,6 +51,7 @@ public class CollectibleManagerSO : ScriptableObject
                 Collectible[] collectibles = pool[collectibleType];
                 collectibles[collectibleIndex[collectibleType]].Spawn(position, amount);
                 collectibleIndex[collectibleType] = UpdateIndex(collectibleIndex[collectibleType], collectibles.Length);
+                break;
             }
         }
     }

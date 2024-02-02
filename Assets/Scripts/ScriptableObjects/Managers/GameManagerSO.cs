@@ -25,6 +25,7 @@ public class GameManagerSO : ScriptableObject
     public event Action OnStartGame;
     public event Action OnGameOver;
     public event Action OnPauseResumeGame;
+    public event Action OnWaveChange;
     #endregion
 
     #region Methods
@@ -46,6 +47,16 @@ public class GameManagerSO : ScriptableObject
     public void PauseResumeGame()
     {
         OnPauseResumeGame?.Invoke();
+    }
+
+    public void ChangeWave()
+    {
+        OnWaveChange?.Invoke();
+    }
+
+    public void ChangeLevel()
+    {
+
     }
     #endregion
 }

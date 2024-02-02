@@ -9,6 +9,8 @@ public class LevelManager : MonoBehaviour
     [SerializeField] GameObject pauseCanvas;
     [SerializeField] GameObject gameOverCanvas;
 
+    [SerializeField] TextMeshProUGUI levelBigText;
+    [SerializeField] TextMeshProUGUI waveBigText;
     [SerializeField] TextMeshProUGUI coinsText;
     [SerializeField] TextMeshProUGUI livesText;
     [SerializeField] TextMeshProUGUI levelText;
@@ -18,7 +20,7 @@ public class LevelManager : MonoBehaviour
 
 
     private bool isPaused;
-    private int currentWave;
+    private int currentWave = 1;
 
     public int CurrentWave { get => currentWave; set => currentWave = value; }
 
@@ -33,6 +35,7 @@ public class LevelManager : MonoBehaviour
         gameManager.OnStartGame += OnStartGame;
         gameManager.OnPauseResumeGame += OnPauseResumeGame;
         gameManager.OnGameOver += OnGameOver;
+        gameManager.OnWaveChange += OnWaveChange;
     }
 
     private void OnDisable()
@@ -40,8 +43,10 @@ public class LevelManager : MonoBehaviour
         gameManager.OnStartGame -= OnStartGame;
         gameManager.OnPauseResumeGame -= OnPauseResumeGame;
         gameManager.OnGameOver -= OnGameOver;
+        gameManager.OnWaveChange -= OnWaveChange;
     }
 
+    #region Methods
     private void OnStartGame()
     {
         Time.timeScale = 1;
@@ -60,6 +65,20 @@ public class LevelManager : MonoBehaviour
         gameOverCanvas.SetActive(true);
     }
 
+    private void OnWaveChange()
+    {
+        StartCoroutine(UpdateUIWhenWaveChanged());
+    }
+
+    public void NextLevel()
+    {
+        // play animation,
+        // call gameManager to call next level event
+        // on seneManager, do the change to next scene
+    }
+    #endregion
+
+    #region Coroutines
     private IEnumerator UpdateUI()
     {
         while (true)
@@ -73,4 +92,13 @@ public class LevelManager : MonoBehaviour
         
     }
 
+    private IEnumerator UpdateUIWhenWaveChanged()
+    {
+        levelBigText.text = "Level " + (gameManager.CurrentLevelIndex + 1);
+        waveBigText.text = "Wave " + currentWave;
+        yield return new WaitForSeconds(gameManager.CurrentLevel.TimeBetweenWaves);
+        levelBigText.text = "";
+        waveBigText.text = "";
+    }
+    #endregion
 }
