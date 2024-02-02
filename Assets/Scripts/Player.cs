@@ -6,7 +6,7 @@ using UnityEngine.Scripting.APIUpdating;
 public class Player : MonoBehaviour
 {
     [Header("Player")]
-    [SerializeField] int lives;
+    [SerializeField] int lives = 3;
     
     [Header("Managers")]
     [SerializeField] GameManagerSO gameManager;
@@ -29,18 +29,33 @@ public class Player : MonoBehaviour
     private bool shoot;
     private float shootingTime;
 
-    // Start is called before the first frame update
+    private void Awake()
+    {
+        int savedLives = PlayerPrefs.GetInt("Lives");
+        if (savedLives == 0)
+        {
+            PlayerPrefs.SetInt("Lives", lives);
+        }
+        else
+        {
+            lives = savedLives;
+        }
+        
+    }
     void Start()
     {
-        bulletManager.Init();
         shootingTime = fireRatio;
     }
 
     // Update is called once per frame
     void Update()
     {
-        if (!gameManager.GameOver)
+        if (lives > 0)
         {
+            if (Input.GetKeyDown(KeyCode.Escape))
+            {
+                gameManager.PauseResumeGame();
+            }
             Move();
             Shoot();
         }
@@ -78,6 +93,18 @@ public class Player : MonoBehaviour
             shootingTime = 0;
         }
     }
+
+    private void Collect(Collectible collectible)
+    {
+        switch (collectible.CollectibleType)
+        {
+            case CollectibleType.Coin: {
+                    gameManager.TotalCoins += collectible.Amount;
+                    Debug.Log("coins " + gameManager.TotalCoins);
+                    break; 
+            }
+        }
+    }
     #endregion
 
     #region Collisions
@@ -86,6 +113,16 @@ public class Player : MonoBehaviour
         if(collision.CompareTag("EnemyBullet") || collision.CompareTag("Enemy"))
         {
             lives--;
+            collision.gameObject.SetActive(false);
+            if(lives <= 0)
+            {
+                PlayerPrefs.SetInt("Lives", 0);
+                gameManager.GameOver();
+            }
+        } 
+        else if (collision.CompareTag("Collectible"))
+        {
+            Collect(collision.gameObject.GetComponent<Collectible>());
             collision.gameObject.SetActive(false);
         }
     }

@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2990697739297245211}
   - component: {fileID: 3940234652085878736}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: EnemyVisual
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -96,7 +96,7 @@ GameObject:
   - component: {fileID: 7565459671260951805}
   - component: {fileID: 6035600491138829387}
   - component: {fileID: 3451021967111927282}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Enemy
   m_TagString: Enemy
   m_Icon: {fileID: 0}
@@ -140,6 +140,8 @@ MonoBehaviour:
   fireRate: 0
   bulletManager: {fileID: 0}
   firePoints: []
+  coinsAmount: 20
+  collectibleManager: {fileID: 11400000, guid: a3a2f1e9c25c73f4081bd980f5520b99, type: 2}
 --- !u!50 &6035600491138829387
 Rigidbody2D:
   serializedVersion: 4

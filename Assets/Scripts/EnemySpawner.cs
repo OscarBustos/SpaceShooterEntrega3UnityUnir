@@ -6,6 +6,8 @@ public class EnemySpawner : MonoBehaviour
 {
     [SerializeField] GameManagerSO gameManager;
     [SerializeField] EnemyManagerSO enemyManager;
+    [SerializeField] LevelManager levelManager;
+    [SerializeField] float startSpawningAfter;
 
     [Header("Movement")]
     [SerializeField] float minY;
@@ -29,7 +31,6 @@ public class EnemySpawner : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        enemyManager.Init();
         StartCoroutine(SpawnEnemies());
     }
 
@@ -41,9 +42,11 @@ public class EnemySpawner : MonoBehaviour
 
     private IEnumerator SpawnEnemies()
     {
+        yield return new WaitForSeconds(startSpawningAfter);
         for(int i = 0; i < waves; i++)
         {
-            for(int j = 0; j < enemiesByWave; j++)
+            levelManager.CurrentWave = i + 1;
+            for (int j = 0; j < enemiesByWave; j++)
             {
                 float yPosition = Random.Range(minY, maxY);
                 transform.position = new Vector2(transform.position.x, yPosition);
