@@ -8,6 +8,7 @@ TagManager:
   - Enemy
   - EnemyBullet
   - Bounds
+  - Collectible
   layers:
   - Default
   - TransparentFX
@@ -16,7 +17,7 @@ TagManager:
   - Water
   - UI
   - Bullet
-  - 
+  - Enemy
   - 
   - 
   - 

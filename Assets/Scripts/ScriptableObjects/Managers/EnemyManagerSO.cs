@@ -14,21 +14,11 @@ public class EnemyManagerSO : ScriptableObject
     private Dictionary<EnemyType, Enemy[]> pool;
     private Dictionary<EnemyType, int> enemyIndex;
 
-    public void Init()
+    private void Init()
     {
-        if(pool != null)
-        {
-            pool.Clear();
-            enemyIndex.Clear();
-        }
-        else
-        {
-            pool = new Dictionary<EnemyType, Enemy[]>();
-            enemyIndex = new Dictionary<EnemyType, int>();
-        }
-
-        
-
+        pool = new Dictionary<EnemyType, Enemy[]>();
+        enemyIndex = new Dictionary<EnemyType, int>();
+    
         for(int i = 0; i < enemyPrefabs.Length; i++)
         {
             Enemy[] enemies = new Enemy[poolSize];
@@ -47,12 +37,16 @@ public class EnemyManagerSO : ScriptableObject
 
     public void Spawn(Vector2 position, EnemyType enemyType)
     {
+        if(pool == null || pool[0][0] == null)
+        {
+            Init();
+        }
         Enemy[] enemies = pool[enemyType];
         int currentIndex = enemyIndex[enemyType];
         Enemy enemy = enemies[currentIndex];
+        Debug.Log("enemy on index "+ currentIndex +" null " + enemy == null);
         enemy.Spawn(position);
         enemyIndex[enemyType] = UpdateIndex(currentIndex, enemies.Length);
-            
     }
 
     private int UpdateIndex(int currentIndex, int lenght)

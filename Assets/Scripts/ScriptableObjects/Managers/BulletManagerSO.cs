@@ -21,10 +21,7 @@ public class BulletManagerSO : ScriptableObject
     private Bullet[] bulletPool;
     private int currentIndex;
 
-    private bool initialized;
-    public bool IsInitialized {get => initialized; }
-
-    public void Init()
+    private void Init()
     {
         bulletPool = new Bullet[size];
         for(int i = 0; i < size; i++)
@@ -32,18 +29,20 @@ public class BulletManagerSO : ScriptableObject
             GameObject bullet = Instantiate(bulletPrefeb, Vector2.zero, Quaternion.identity);
             bulletPool[i] = bullet.GetComponent<Bullet>();
             bullet.SetActive(false);
-            
         }
     }
 
     public void Shoot(Transform[] firePonintPositions)
     {
+        if(bulletPool == null || bulletPool[0] == null)
+        {
+            Init();
+        }
         foreach(Transform firePoint in firePonintPositions)
         {
             bulletPool[currentIndex].Move(speed, xDirection, firePoint.position);
             UpdateIndex();
         }
-        
     }
 
     private void UpdateIndex()

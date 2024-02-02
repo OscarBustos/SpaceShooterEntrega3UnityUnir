@@ -9,9 +9,8 @@ public class SceneTransitionManager : MonoBehaviour
     
     public void NewGame()
     {
-        gameManager.CurrentLevelIndex = 0;
         gameManager.StartGame();
-        Invoke("LoadFirstScene", 1f);
+        LoadFirstScene();
     }
 
     private void LoadFirstScene()
@@ -30,8 +29,14 @@ public class SceneTransitionManager : MonoBehaviour
         Debug.Log("Quit Game");
     }
 
+    public void BackToMainMenu()
+    {
+        LoadScene(0);
+    }
+
     private void LoadScene(int sceneIndex)
     {
         SceneManager.LoadScene(sceneIndex);
     }
+
 }

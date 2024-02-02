@@ -19,6 +19,10 @@ public class Enemy : MonoBehaviour
     [SerializeField] private BulletManagerSO bulletManager;
     [SerializeField] private Transform[] firePoints;
 
+    [Header("Collectibles")]
+    [SerializeField] private int coinsAmount;
+    [SerializeField] private CollectibleManagerSO collectibleManager;
+    private int livesAmount = 1;
     public EnemyType EnemyType { get => enemyType; }
 
 
@@ -40,12 +44,13 @@ public class Enemy : MonoBehaviour
         gameObject.SetActive(true);
         if (shoot)
         {
-            if (!bulletManager.IsInitialized)
-            {
-                bulletManager.Init();
-            }
             InvokeRepeating("Shoot", startShootingAfterSeconds, fireRate);
         }
+    }
+
+    public void Die()
+    {
+        collectibleManager.SpawnCollectible(transform.position, coinsAmount, livesAmount);
     }
     #endregion
 
@@ -53,12 +58,21 @@ public class Enemy : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if (collision.CompareTag("PlayerBullet") || collision.CompareTag("Bounds"))
+        bool disable = false;
+        if (collision.CompareTag("PlayerBullet"))
+        {
+            Die();
+            disable = true;
+        } else if (collision.CompareTag("Bounds"))
+        {
+            disable = true;
+        }
+
+        if (disable)
         {
             transform.position = Vector2.zero;
             gameObject.SetActive(false);
         }
-        
     }
     #endregion
 }

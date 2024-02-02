@@ -44,7 +44,6 @@ public class Player : MonoBehaviour
     }
     void Start()
     {
-        bulletManager.Init();
         shootingTime = fireRatio;
     }
 
@@ -94,6 +93,18 @@ public class Player : MonoBehaviour
             shootingTime = 0;
         }
     }
+
+    private void Collect(Collectible collectible)
+    {
+        switch (collectible.CollectibleType)
+        {
+            case CollectibleType.Coin: {
+                    gameManager.TotalCoins += collectible.Amount;
+                    Debug.Log("coins " + gameManager.TotalCoins);
+                    break; 
+            }
+        }
+    }
     #endregion
 
     #region Collisions
@@ -108,6 +119,11 @@ public class Player : MonoBehaviour
                 PlayerPrefs.SetInt("Lives", 0);
                 gameManager.GameOver();
             }
+        } 
+        else if (collision.CompareTag("Collectible"))
+        {
+            Collect(collision.gameObject.GetComponent<Collectible>());
+            collision.gameObject.SetActive(false);
         }
     }
     #endregion
