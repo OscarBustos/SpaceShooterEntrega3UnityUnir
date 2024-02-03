@@ -14,7 +14,7 @@ public class EnemyManagerSO : ScriptableObject
     private Dictionary<EnemyType, Enemy[]> pool;
     private Dictionary<EnemyType, int> enemyIndex;
 
-    private void Init()
+    private void Init(EnemyType enemyType)
     {
         pool = new Dictionary<EnemyType, Enemy[]>();
         enemyIndex = new Dictionary<EnemyType, int>();
@@ -22,26 +22,29 @@ public class EnemyManagerSO : ScriptableObject
         for(int i = 0; i < enemyPrefabs.Length; i++)
         {
             Enemy[] enemies = new Enemy[poolSize];
-            for (int j = 0; j < poolSize; j++)
+            if (enemyPrefabs[i].GetComponent<Enemy>().EnemyType == enemyType)
             {
-
-                GameObject enemy = Instantiate(enemyPrefabs[i], new Vector2(0, 0), Quaternion.identity);
-                enemies[j] = enemy.GetComponent<Enemy>();
-                enemy.SetActive(false);
+                for (int j = 0; j < poolSize; j++)
+                {
+                    GameObject enemy = Instantiate(enemyPrefabs[i], new Vector2(0, 0), Quaternion.identity);
+                    enemies[j] = enemy.GetComponent<Enemy>();
+                    enemy.SetActive(false);
+                }
+                pool.Add(enemyType, enemies);
+                enemyIndex.Add(enemyType, 0);
             }
-            EnemyType enemyType = enemies[0].GetComponent<Enemy>().EnemyType;
-            pool.Add(enemyType, enemies);
-            enemyIndex.Add(enemyType, 0);
         }
     }
 
     public void Spawn(Vector2 position, EnemyType enemyType)
     {
-        if(pool == null || pool[0][0] == null)
+        Enemy[] enemies = null;
+
+        if (pool == null || !pool.TryGetValue(enemyType, out enemies) || pool[enemyType][0] == null)
         {
-            Init();
+            Init(enemyType);
         }
-        Enemy[] enemies = pool[enemyType];
+        enemies = pool[enemyType];
         int currentIndex = enemyIndex[enemyType];
         Enemy enemy = enemies[currentIndex];
         Debug.Log("enemy on index "+ currentIndex +" null " + enemy == null);

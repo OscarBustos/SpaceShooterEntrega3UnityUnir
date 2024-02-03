@@ -52,7 +52,7 @@ public class EnemySpawner : MonoBehaviour
             {
                 float yPosition = Random.Range(minY, maxY);
                 transform.position = new Vector2(transform.position.x, yPosition);
-                enemyManager.Spawn(transform.position, EnemyType.SIMPLE);
+                enemyManager.Spawn(transform.position, gameManager.CurrentLevel.EnemyType);
                 yield return new WaitForSeconds(timeBetweenEnemies);
                 
             }
@@ -62,8 +62,10 @@ public class EnemySpawner : MonoBehaviour
                 levelManager.CurrentWave++;
                 gameManager.ChangeWave();
             }
-            yield return new WaitForSeconds(timeBetweenWaves);   
+            if(i < waves - 1)
+                yield return new WaitForSeconds(timeBetweenWaves);   
         }
-        levelManager.NextLevel();                  
+        yield return new WaitForSeconds(1);
+        gameManager.ChangeLevel();                 
     }
 }

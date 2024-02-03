@@ -70,7 +70,9 @@ public class Enemy : MonoBehaviour
 
         if (disable)
         {
+            CancelInvoke("Shoot");
             transform.position = Vector2.zero;
+
             gameObject.SetActive(false);
         }
     }

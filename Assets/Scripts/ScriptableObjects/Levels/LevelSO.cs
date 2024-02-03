@@ -6,6 +6,7 @@ using UnityEngine;
 public class LevelSO : ScriptableObject
 {
     [SerializeField] private string levelName;
+    [SerializeField] private EnemyType enemyType;
     [SerializeField] private int waves;
     [SerializeField] private float timeBetweenWaves;
     [SerializeField] private int enemiesByWave;
@@ -17,6 +18,8 @@ public class LevelSO : ScriptableObject
     public int EnemiesByWave { get => enemiesByWave; }
     public float TimeBetweenEnemies { get => timeBetweenEnemies; }
     public float EnemySpeedMultiplier { get => enemySpeedMultiplier; }
+
+    public EnemyType EnemyType { get => enemyType; }
 
 
 }

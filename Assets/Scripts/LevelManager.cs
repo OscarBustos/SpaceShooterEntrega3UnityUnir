@@ -8,6 +8,8 @@ public class LevelManager : MonoBehaviour
     [SerializeField] GameManagerSO gameManager;
     [SerializeField] GameObject pauseCanvas;
     [SerializeField] GameObject gameOverCanvas;
+    [SerializeField] FadePanelController fadePanelController;
+    [SerializeField] float waitSecondsToFadeOut;
 
     [SerializeField] TextMeshProUGUI levelBigText;
     [SerializeField] TextMeshProUGUI waveBigText;
@@ -36,6 +38,7 @@ public class LevelManager : MonoBehaviour
         gameManager.OnPauseResumeGame += OnPauseResumeGame;
         gameManager.OnGameOver += OnGameOver;
         gameManager.OnWaveChange += OnWaveChange;
+        gameManager.OnChangeLevel += OnChangeLevel;
     }
 
     private void OnDisable()
@@ -44,6 +47,7 @@ public class LevelManager : MonoBehaviour
         gameManager.OnPauseResumeGame -= OnPauseResumeGame;
         gameManager.OnGameOver -= OnGameOver;
         gameManager.OnWaveChange -= OnWaveChange;
+        gameManager.OnChangeLevel -= OnChangeLevel;
     }
 
     #region Methods
@@ -70,12 +74,11 @@ public class LevelManager : MonoBehaviour
         StartCoroutine(UpdateUIWhenWaveChanged());
     }
 
-    public void NextLevel()
+    private void OnChangeLevel()
     {
-        // play animation,
-        // call gameManager to call next level event
-        // on seneManager, do the change to next scene
+        StartCoroutine(FadeOut());
     }
+
     #endregion
 
     #region Coroutines
@@ -83,7 +86,7 @@ public class LevelManager : MonoBehaviour
     {
         while (true)
         {
-            coinsText.text = gameManager.TotalCoins.ToString();
+            coinsText.text = gameManager.LevelCoins.ToString() + " / " + gameManager.MaxScore.ToString() ;
             livesText.text = gameManager.TotalLives.ToString();
             levelText.text = (gameManager.CurrentLevelIndex + 1).ToString();
             wavesText.text = currentWave.ToString();
@@ -99,6 +102,12 @@ public class LevelManager : MonoBehaviour
         yield return new WaitForSeconds(gameManager.CurrentLevel.TimeBetweenWaves);
         levelBigText.text = "";
         waveBigText.text = "";
+    }
+
+    private IEnumerator FadeOut()
+    {
+        yield return new WaitForSeconds(waitSecondsToFadeOut);
+        fadePanelController.FadeOut();
     }
     #endregion
 }

@@ -102,11 +102,12 @@ public class Player : MonoBehaviour
             case CollectibleType.Coin: 
             {
                     gameManager.TotalCoins += collectible.Amount;
+                    gameManager.LevelCoins += collectible.Amount;
                     break; 
             }
             case CollectibleType.Live:
             {
-                    gameManager.TotalLives += collectible.Amount;
+                    gameManager.TotalLives += collectible.Amount;                    
                     lives += collectible.Amount;
                     break;    
             }

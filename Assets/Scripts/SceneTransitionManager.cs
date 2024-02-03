@@ -6,7 +6,17 @@ using UnityEngine.SceneManagement;
 public class SceneTransitionManager : MonoBehaviour
 {
     [SerializeField] GameManagerSO gameManager;
-    
+
+    private void OnEnable()
+    {
+        gameManager.OnChangeLevel += OnChangeLevel;
+    }
+
+    private void OnDisable()
+    {
+        gameManager.OnChangeLevel -= OnChangeLevel;
+    }
+
     public void NewGame()
     {
         gameManager.StartGame();
@@ -15,12 +25,13 @@ public class SceneTransitionManager : MonoBehaviour
 
     private void LoadFirstScene()
     {
-        LoadScene(gameManager.CurrentLevelIndex + 1);
+        LoadScene(1);
     }
 
     public void ContinueGame()
     {
-        LoadScene(gameManager.CurrentLevelIndex + 1);
+        gameManager.LevelCoins = 0;
+        LoadScene(1);
     }
 
     public void QuitGame()
@@ -39,4 +50,15 @@ public class SceneTransitionManager : MonoBehaviour
         SceneManager.LoadScene(sceneIndex);
     }
 
+    private void OnChangeLevel()
+    {
+        StartCoroutine(LoadSceneAfter(3));
+    }
+
+    private IEnumerator LoadSceneAfter(float seconds)
+    {
+        yield return new WaitForSeconds(seconds);
+        gameManager.CurrentLevelIndex++;
+        LoadScene(1);
+    }
 }

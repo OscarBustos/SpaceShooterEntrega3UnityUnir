@@ -142,6 +142,7 @@ MonoBehaviour:
   firePoints: []
   coinsAmount: 20
   collectibleManager: {fileID: 11400000, guid: a3a2f1e9c25c73f4081bd980f5520b99, type: 2}
+  explosionGameObject: {fileID: 5040639300944160304, guid: 72f6c2909d34d474cad7f7f7ab90ea39, type: 3}
 --- !u!50 &6035600491138829387
 Rigidbody2D:
   serializedVersion: 4
