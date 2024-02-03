@@ -9,12 +9,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ec8c3a06014dd4848871cb91e5f9a107, type: 3}
-  m_Name: Level_01
+  m_Script: {fileID: 11500000, guid: 2e9f4107d52984e42aa6d36d576f6ccb, type: 3}
+  m_Name: EnemyBulletManager
   m_EditorClassIdentifier: 
-  levelName: Level 1
-  waves: 3
-  timeBetweenWaves: 3
-  enemiesByWave: 10
-  timeBetweenEnemies: 1
-  enemySpeedMultiplier: 1
+  size: 20
+  bulletPrefeb: {fileID: 1387840854248195547, guid: b9921c6586e34824aae023bd943c585c, type: 3}
+  speed: 20
+  xDirection: -1

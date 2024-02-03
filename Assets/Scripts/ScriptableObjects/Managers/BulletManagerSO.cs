@@ -34,7 +34,7 @@ public class BulletManagerSO : ScriptableObject
 
     public void Shoot(Transform[] firePonintPositions)
     {
-        if(bulletPool == null || bulletPool[0] == null)
+        if(bulletPool == null || bulletPool.Length == 0 || bulletPool[0] == null)
         {
             Init();
         }

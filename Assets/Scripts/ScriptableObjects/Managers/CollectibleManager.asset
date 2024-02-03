@@ -14,6 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   collectiblePrefabs:
   - {fileID: 6225174761895332184, guid: 097502e9c325ffd4ca6497e7e56b1651, type: 3}
+  - {fileID: 7054441960133381127, guid: 790055b870c85a34abe32d19122bb6ec, type: 3}
   poolSize: 20
-  prefabSpawnProbability: 32000000
-  probabilityRange: 32000000
+  prefabSpawnProbability: 2d0000005f000000
+  probabilityRange: 2d00000005000000

@@ -40,6 +40,7 @@ public class Player : MonoBehaviour
         {
             lives = savedLives;
         }
+        gameManager.TotalLives = lives;
         
     }
     void Start()
@@ -98,10 +99,17 @@ public class Player : MonoBehaviour
     {
         switch (collectible.CollectibleType)
         {
-            case CollectibleType.Coin: {
+            case CollectibleType.Coin: 
+            {
                     gameManager.TotalCoins += collectible.Amount;
-                    Debug.Log("coins " + gameManager.TotalCoins);
+                    gameManager.LevelCoins += collectible.Amount;
                     break; 
+            }
+            case CollectibleType.Live:
+            {
+                    gameManager.TotalLives += collectible.Amount;                    
+                    lives += collectible.Amount;
+                    break;    
             }
         }
     }
@@ -113,6 +121,7 @@ public class Player : MonoBehaviour
         if(collision.CompareTag("EnemyBullet") || collision.CompareTag("Enemy"))
         {
             lives--;
+            gameManager.TotalLives = lives;
             collision.gameObject.SetActive(false);
             if(lives <= 0)
             {

@@ -6,10 +6,13 @@ public class FadePanelController : MonoBehaviour
 {
     private Animator animator;
     private Canvas parentCanvasComponent;
+
     private void Start()
     {
         animator = GetComponent<Animator>();
+        animator.SetTrigger("FadeIn");
         parentCanvasComponent = gameObject.GetComponentInParent<Canvas>();
+        DisableParent();
     }
     public void DisableParent()
     {
