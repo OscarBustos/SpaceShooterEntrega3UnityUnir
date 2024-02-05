@@ -8,10 +8,9 @@ public class MainMenuController : MonoBehaviour
     [SerializeField] GameManagerSO gameManager;
     [SerializeField] Button continueButton;
 
-    // Start is called before the first frame update
     void Start()
     {
-        if(PlayerPrefs.GetInt("GameStarted") == 1 ? true : false)
+        if(PlayerPrefs.GetInt("GameStarted") == 1)
         {
             continueButton.gameObject.SetActive(true);
         } 
@@ -19,11 +18,5 @@ public class MainMenuController : MonoBehaviour
         {
             continueButton.gameObject.SetActive(false);
         }
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
     }
 }

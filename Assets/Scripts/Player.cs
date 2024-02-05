@@ -23,15 +23,18 @@ public class Player : MonoBehaviour
     [SerializeField] float fireRatio;
     [SerializeField] Transform[] firePointPositions;
 
-
+    private Transform[] enabledFirePointsPositions;
     private float verticalDirection;
     private float horizontalDirection;
     private bool shoot;
     private float shootingTime;
+    private Sprite skin;
+    private int cannonNumber;
 
     private void Awake()
     {
         int savedLives = PlayerPrefs.GetInt("Lives");
+        LoadPlayerSettings();
         if (savedLives == 0)
         {
             PlayerPrefs.SetInt("Lives", lives);
@@ -42,6 +45,18 @@ public class Player : MonoBehaviour
         }
         gameManager.TotalLives = lives;
         
+    }
+
+    private void OnEnable()
+    {
+        gameManager.OnChangeLevel += OnChangeLevel;
+        gameManager.OnReloadPlayerPrefs += LoadPlayerSettings;
+    }
+
+    private void OnDisable()
+    {
+        gameManager.OnChangeLevel -= OnChangeLevel;
+        gameManager.OnReloadPlayerPrefs -= LoadPlayerSettings;
     }
     void Start()
     {
@@ -80,7 +95,7 @@ public class Player : MonoBehaviour
         CalculateShootingTime();
         if (Input.GetKey(KeyCode.Space) && shoot)
         {
-            bulletManager.Shoot(firePointPositions);
+            bulletManager.Shoot(enabledFirePointsPositions);
             shoot = false;
         }
     }
@@ -111,6 +126,52 @@ public class Player : MonoBehaviour
                     lives += collectible.Amount;
                     break;    
             }
+        }
+    }
+
+    private void OnChangeLevel()
+    {
+        PlayerPrefs.SetInt("Lives", lives);
+    }
+
+    private void LoadPlayerSettings()
+    {
+        string skinName = PlayerPrefs.GetString("Skin");
+        if(skinName != "")
+        {
+            skin = Resources.Load<Sprite>("Sprites/PlayerShips/" + skinName);
+            GetComponentInChildren<SpriteRenderer>().sprite = skin;
+        }
+        cannonNumber = PlayerPrefs.GetInt("CannonNumber");
+        
+
+        switch (cannonNumber)
+        {
+            case 0:
+            case 1:
+                {
+                    firePointPositions[0].gameObject.SetActive(true);
+                    firePointPositions[1].gameObject.SetActive(false);
+                    firePointPositions[2].gameObject.SetActive(false);
+                    enabledFirePointsPositions = new Transform[] { firePointPositions[0] };
+                    break;
+                }
+            case 2:
+                {
+                    firePointPositions[0].gameObject.SetActive(false);
+                    firePointPositions[1].gameObject.SetActive(true);
+                    firePointPositions[2].gameObject.SetActive(true);
+                    enabledFirePointsPositions = new Transform[] { firePointPositions[1], firePointPositions[2] };
+                    break;
+                }
+            case 3:
+                {
+                    firePointPositions[0].gameObject.SetActive(true);
+                    firePointPositions[1].gameObject.SetActive(true);
+                    firePointPositions[2].gameObject.SetActive(true);
+                    enabledFirePointsPositions = firePointPositions;
+                    break;
+                }
         }
     }
     #endregion

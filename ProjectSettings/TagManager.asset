@@ -9,6 +9,9 @@ TagManager:
   - EnemyBullet
   - Bounds
   - Collectible
+  - StoreItem
+  - ItemValue
+  - ItemImage
   layers:
   - Default
   - TransparentFX

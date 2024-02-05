@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 public class EnemySpawner : MonoBehaviour
@@ -66,6 +67,24 @@ public class EnemySpawner : MonoBehaviour
                 yield return new WaitForSeconds(timeBetweenWaves);   
         }
         yield return new WaitForSeconds(1);
-        gameManager.ChangeLevel();                 
+        StartCoroutine(ChangeLevelWhenEndOfLevel());
     }
+
+    public IEnumerator ChangeLevelWhenEndOfLevel()
+    {
+        bool changeLevel = true;
+        while (changeLevel)
+        {
+            Enemy[] enemies = FindObjectsOfType<Enemy>();
+            Collectible[] collectibles = FindObjectsOfType<Collectible>();
+            if (enemies.Length == 0 && collectibles.Length == 0)
+            {
+                changeLevel = false;
+                gameManager.ChangeLevel();
+            }
+            yield return new WaitForSeconds(0.5f);
+        }
+         
+    }
+    
 }

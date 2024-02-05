@@ -46,4 +46,12 @@ public class Collectible : MonoBehaviour
             gameObject.SetActive(false);
         }
     }
+
+    private void OnTriggerStay2D(Collider2D collision)
+    {
+        if (collision.gameObject.CompareTag("Bounds"))
+        {
+            gameObject.SetActive(false);
+        }
+    }
 }
