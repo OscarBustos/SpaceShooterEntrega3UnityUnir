@@ -8,16 +8,9 @@ public class Enemy : MonoBehaviour
     [SerializeField] private EnemyType enemyType;
 
     [Header("Movement")]
-    [SerializeField] private Vector2 direction;
-    [SerializeField] private float speed;
-    [SerializeField] private Transform waypoints;
+    [SerializeField] protected Vector2 direction;
+    [SerializeField] protected float speed;
 
-    [Header("Shooting")]
-    [SerializeField] private bool shoot;
-    [SerializeField] private float startShootingAfterSeconds;
-    [SerializeField] private float fireRate;
-    [SerializeField] private BulletManagerSO bulletManager;
-    [SerializeField] private Transform[] firePoints;
 
     [Header("Collectibles")]
     [SerializeField] private int coinsAmount;
@@ -29,23 +22,17 @@ public class Enemy : MonoBehaviour
     #region Methods
     void Update()
     {
+        Move();
+    }
+
+    public virtual void Move()
+    {
         transform.Translate(direction.normalized * speed * Time.deltaTime);
     }
-
-    private void Shoot()
-    {
-        bulletManager.Shoot(firePoints);
-    }
-
-
-    public void Spawn(Vector2 position)
+    public virtual void Spawn(Vector2 position)
     {
         transform.position = position;
         gameObject.SetActive(true);
-        if (shoot)
-        {
-            InvokeRepeating("Shoot", startShootingAfterSeconds, fireRate);
-        }
     }
 
     public void Die()

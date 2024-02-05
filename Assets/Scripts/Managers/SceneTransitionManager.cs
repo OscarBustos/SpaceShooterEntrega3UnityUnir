@@ -30,7 +30,9 @@ public class SceneTransitionManager : MonoBehaviour
 
     public void ContinueGame()
     {
+        gameManager.IsGameOver = false;
         gameManager.LevelCoins = 0;
+        PlayerPrefs.SetInt("GameStarted", 1);
         LoadScene(1);
     }
 

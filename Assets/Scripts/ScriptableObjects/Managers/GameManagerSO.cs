@@ -2,8 +2,11 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.Linq;
 using Unity.VisualScripting;
+using UnityEditor.VersionControl;
 using UnityEngine;
+using UnityEngine.UIElements;
 
 [CreateAssetMenu(menuName ="Managers/Game Manager")]
 public class GameManagerSO : ScriptableObject
@@ -13,13 +16,14 @@ public class GameManagerSO : ScriptableObject
     [SerializeField] private int totalCoins;
     [SerializeField] private int totalLives;
     [SerializeField] private int scorePercentageToPass;
+    [SerializeField] private StoreItemsListSO storeList;
     private bool isGameOver;
     private int pointsByEnemy = 20; // This value can be changed, but for this prototype it would be hardcoded
     private int levelCoins;
     
     public LevelSO CurrentLevel { get => levels[currentLevelIndex]; }
     public int CurrentLevelIndex { get => currentLevelIndex; set => currentLevelIndex = value; }
-    public bool IsGameOver { get => isGameOver; }
+    public bool IsGameOver { get => isGameOver; set => isGameOver = value; }
 
     public int TotalCoins { get => totalCoins; set => totalCoins = value; }
     public int LevelCoins { get => levelCoins; set => levelCoins = value; }
@@ -31,9 +35,11 @@ public class GameManagerSO : ScriptableObject
     #region Events
     public event Action OnStartGame;
     public event Action OnGameOver;
+    public event Action OnWin;
     public event Action OnPauseResumeGame;
     public event Action OnWaveChange;
     public event Action OnChangeLevel;
+    public event Action OnReloadPlayerPrefs;
     #endregion
 
     #region Methods
@@ -43,6 +49,11 @@ public class GameManagerSO : ScriptableObject
         totalCoins = 0;
         levelCoins = 0;
         PlayerPrefs.SetInt("GameStarted", 1);
+        PlayerPrefs.SetInt("Lives", 3);
+        PlayerPrefs.SetString("Skin", "");
+        PlayerPrefs.SetInt("CannonNumber", 0);
+        storeList.MutableList = null;
+        storeList.SetList();
         OnStartGame?.Invoke();
     }
 
@@ -64,18 +75,25 @@ public class GameManagerSO : ScriptableObject
     }
 
     public void ChangeLevel()
-    {
-        int percentage = (levelCoins * 100) / MaxScore;
-        if (percentage >= scorePercentageToPass)
+    {   if(currentLevelIndex == levels.Length - 1)
         {
-            levelCoins = 0;
+            OnWin?.Invoke();
+        }
+        else if (levelCoins >= MaxScore)
+        {
             OnChangeLevel?.Invoke();
         }
         else
         {
             GameOver();
         }
-        
+    }
+
+    public void ReloadPlayerPrefs()
+    {
+        OnReloadPlayerPrefs?.Invoke();
     }
     #endregion
+
+
 }

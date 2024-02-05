@@ -12,10 +12,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5d7f67eeee559374198637f2b05d138a, type: 3}
   m_Name: GameManager
   m_EditorClassIdentifier: 
-  currentLevelIndex: 1
+  currentLevelIndex: 3
   levels:
   - {fileID: 11400000, guid: 32e6cd9f039d1d1409e46b2ae1a98636, type: 2}
   - {fileID: 11400000, guid: a866b2aa002baf144b7d9b09433b0b53, type: 2}
-  totalCoins: 2880
-  totalLives: 2
+  - {fileID: 11400000, guid: 60ecf5de404dce84a92bf0132435eaba, type: 2}
+  - {fileID: 11400000, guid: d2815a0b3709f934e9871803340d42b5, type: 2}
+  totalCoins: 3580
+  totalLives: 3
   scorePercentageToPass: 50
+  storeList: {fileID: 11400000, guid: f62700908dc02a448af3901fac47fcfc, type: 2}

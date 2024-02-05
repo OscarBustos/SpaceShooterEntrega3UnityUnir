@@ -12,6 +12,7 @@ public class LevelSO : ScriptableObject
     [SerializeField] private int enemiesByWave;
     [SerializeField] private float timeBetweenEnemies;
     [SerializeField] private float enemySpeedMultiplier;
+    [SerializeField] private AudioClip levelClip;
 
     public int Waves { get => waves; }
     public float TimeBetweenWaves { get => timeBetweenWaves; }
@@ -20,6 +21,7 @@ public class LevelSO : ScriptableObject
     public float EnemySpeedMultiplier { get => enemySpeedMultiplier; }
 
     public EnemyType EnemyType { get => enemyType; }
+    public AudioClip LevelClip { get => levelClip; }
 
 
 }

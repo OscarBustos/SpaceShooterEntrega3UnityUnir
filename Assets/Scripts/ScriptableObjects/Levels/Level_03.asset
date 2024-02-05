@@ -1,0 +1,22 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ec8c3a06014dd4848871cb91e5f9a107, type: 3}
+  m_Name: Level_03
+  m_EditorClassIdentifier: 
+  levelName: Level 3
+  enemyType: 2
+  waves: 3
+  timeBetweenWaves: 3
+  enemiesByWave: 10
+  timeBetweenEnemies: 1
+  enemySpeedMultiplier: 0.1
+  levelClip: {fileID: 8300000, guid: 21672a9aa3fb0ef439e5ade5fab14bdb, type: 3}

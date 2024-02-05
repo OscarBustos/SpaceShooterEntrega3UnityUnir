@@ -14,8 +14,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   levelName: Level 2
   enemyType: 1
-  waves: 5
+  waves: 3
   timeBetweenWaves: 3
-  enemiesByWave: 20
+  enemiesByWave: 10
   timeBetweenEnemies: 1
   enemySpeedMultiplier: 0.1
+  levelClip: {fileID: 8300000, guid: b64e48db8e789ef448ef09cc63692e7c, type: 3}

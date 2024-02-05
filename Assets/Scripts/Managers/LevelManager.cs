@@ -1,13 +1,17 @@
 using System.Collections;
 using System.Collections.Generic;
 using TMPro;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class LevelManager : MonoBehaviour
 {
+    [SerializeField] int minScoreToShowSotre;
     [SerializeField] GameManagerSO gameManager;
     [SerializeField] GameObject pauseCanvas;
     [SerializeField] GameObject gameOverCanvas;
+    [SerializeField] GameObject winCanvas;
+    [SerializeField] GameObject storeCanvas;
     [SerializeField] FadePanelController fadePanelController;
     [SerializeField] float waitSecondsToFadeOut;
 
@@ -22,13 +26,21 @@ public class LevelManager : MonoBehaviour
 
 
     private bool isPaused;
+    private bool showStore;
     private int currentWave = 1;
 
     public int CurrentWave { get => currentWave; set => currentWave = value; }
 
     private void Start()
     {
+        if (gameManager.TotalCoins >= minScoreToShowSotre)
+        {
+            showStore = true;
+            gameManager.PauseResumeGame();
+        }
+        gameManager.LevelCoins = 0;
         StartCoroutine(UpdateUI());
+
     }
 
     private void OnEnable()
@@ -39,6 +51,7 @@ public class LevelManager : MonoBehaviour
         gameManager.OnGameOver += OnGameOver;
         gameManager.OnWaveChange += OnWaveChange;
         gameManager.OnChangeLevel += OnChangeLevel;
+        gameManager.OnWin += OnWin;
     }
 
     private void OnDisable()
@@ -48,6 +61,7 @@ public class LevelManager : MonoBehaviour
         gameManager.OnGameOver -= OnGameOver;
         gameManager.OnWaveChange -= OnWaveChange;
         gameManager.OnChangeLevel -= OnChangeLevel;
+        gameManager.OnWin -= OnWin;
     }
 
     #region Methods
@@ -59,7 +73,17 @@ public class LevelManager : MonoBehaviour
     {
         isPaused = !isPaused;
         Time.timeScale = isPaused ? 0 : 1;
-        pauseCanvas.SetActive(isPaused);
+        if (showStore)
+        {
+            showStore = false;
+            storeCanvas.SetActive(true);
+        }
+        else
+        {
+            storeCanvas.SetActive(false);
+            pauseCanvas.SetActive(isPaused);
+        } 
+            
         
     }
 
@@ -67,6 +91,12 @@ public class LevelManager : MonoBehaviour
     {
         Time.timeScale = 0;
         gameOverCanvas.SetActive(true);
+    }
+
+    private void OnWin()
+    {
+        Time.timeScale = 0;
+        winCanvas.SetActive(true);
     }
 
     private void OnWaveChange()
@@ -77,6 +107,11 @@ public class LevelManager : MonoBehaviour
     private void OnChangeLevel()
     {
         StartCoroutine(FadeOut());
+    }
+
+    public void SetShowStore(bool showStore)
+    {
+        this.showStore = showStore;
     }
 
     #endregion

@@ -92,6 +92,10 @@ PrefabInstance:
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 7565459671260951805, guid: 6443b8cf5d95a184a8e34d51a060d718, type: 3}
+      propertyPath: speed
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 7565459671260951805, guid: 6443b8cf5d95a184a8e34d51a060d718, type: 3}
       propertyPath: fireRate
       value: 1
       objectReference: {fileID: 0}
@@ -115,16 +119,48 @@ PrefabInstance:
       propertyPath: startShootingAfterSeconds
       value: 0.1
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 7565459671260951805, guid: 6443b8cf5d95a184a8e34d51a060d718, type: 3}
     m_RemovedGameObjects: []
     m_AddedGameObjects:
     - targetCorrespondingSourceObject: {fileID: 3216303672932550411, guid: 6443b8cf5d95a184a8e34d51a060d718, type: 3}
       insertIndex: -1
       addedObject: {fileID: 7649526529913160505}
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 449231168449112211, guid: 6443b8cf5d95a184a8e34d51a060d718, type: 3}
+      insertIndex: 1
+      addedObject: {fileID: 277687407272469449}
   m_SourcePrefab: {fileID: 100100000, guid: 6443b8cf5d95a184a8e34d51a060d718, type: 3}
 --- !u!4 &5353212813253899347 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 3216303672932550411, guid: 6443b8cf5d95a184a8e34d51a060d718, type: 3}
   m_PrefabInstance: {fileID: 7415446814146212696}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &6976929905742044107 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 449231168449112211, guid: 6443b8cf5d95a184a8e34d51a060d718, type: 3}
+  m_PrefabInstance: {fileID: 7415446814146212696}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &277687407272469449
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6976929905742044107}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: dfc6ee5b79ef37a4aa5b38c87a73f225, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  enemyType: 1
+  direction: {x: -1, y: 0}
+  speed: 5
+  coinsAmount: 20
+  collectibleManager: {fileID: 11400000, guid: a3a2f1e9c25c73f4081bd980f5520b99, type: 2}
+  shoot: 1
+  startShootingAfterSeconds: 0.2
+  fireRate: 1.2
+  bulletManager: {fileID: 11400000, guid: bf530ef5b2b41c945b85a6434840fac2, type: 2}
+  firePoints:
+  - {fileID: 7649526529913160505}
