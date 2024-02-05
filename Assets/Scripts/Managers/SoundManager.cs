@@ -23,7 +23,8 @@ public class SoundManager : MonoBehaviour
 
     public void PlayLooping(AudioClip audioClip) 
     {
-        loopAudioSource.PlayOneShot(audioClip);
+        loopAudioSource.clip = audioClip;
+        loopAudioSource.Play();
     }
 
     public void PlayOnce(AudioClip audioClip)

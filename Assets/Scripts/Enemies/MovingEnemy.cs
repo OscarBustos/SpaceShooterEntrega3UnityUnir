@@ -9,6 +9,7 @@ public class MovingEnemy : Enemy
     [SerializeField] private float verticalDistance = 1.0f;
     private int randomVerticalDirection;
     private int randomDistance;
+    private bool applyVerticalMovement;
     private void Start()
     {
         randomVerticalDirection = Random.Range(-1, 1);
@@ -20,12 +21,23 @@ public class MovingEnemy : Enemy
             randomVerticalDirection = 1;
         }
         randomDistance = Random.Range(1,(int) verticalDistance + 1);
+        int randomInt = Random.Range(1, 100);
+        applyVerticalMovement = ( randomInt > 0 && randomInt < 60);
     }
 
     public override void Move()
     {
-        base.Move();
-        float y = randomDistance * Mathf.Sin(Time.time * verticalSpeed);
-        transform.position = new Vector3(transform.position.x, y  * randomVerticalDirection, transform.position.z);
+        if (applyVerticalMovement)
+        {
+            float y = randomDistance * Mathf.Sin(Time.time * verticalSpeed);
+            transform.position = new Vector3(transform.position.x, y * randomVerticalDirection, transform.position.z);
+        }
+        else
+        {
+            speed = 10;
+            base.Move();
+        }
+        
+        
     }
 }
