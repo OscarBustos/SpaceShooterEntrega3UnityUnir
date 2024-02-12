@@ -27,6 +27,7 @@ public class MovingEnemy : Enemy
     {
         if (applyVerticalMovement)
         {
+            base.Move();
             float y = randomDistance * Mathf.Sin(Time.time * verticalSpeed);
             transform.position = new Vector3(transform.position.x, y * randomVerticalDirection, transform.position.z);
         }
