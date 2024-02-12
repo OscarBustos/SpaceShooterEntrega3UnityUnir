@@ -1,7 +1,4 @@
-using System.Collections;
 using System.Collections.Generic;
-using System.Drawing;
-using System.Security.Cryptography;
 using UnityEngine;
 
 [CreateAssetMenu(fileName = "EnemyManager", menuName = "Managers/Enemy Manager")]

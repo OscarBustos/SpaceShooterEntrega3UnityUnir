@@ -1,12 +1,5 @@
 using System;
-using System.Collections;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Linq;
-using Unity.VisualScripting;
-using UnityEditor.VersionControl;
 using UnityEngine;
-using UnityEngine.UIElements;
 
 [CreateAssetMenu(menuName ="Managers/Game Manager")]
 public class GameManagerSO : ScriptableObject

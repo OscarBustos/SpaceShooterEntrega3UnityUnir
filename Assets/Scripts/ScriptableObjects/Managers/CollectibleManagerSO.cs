@@ -1,7 +1,5 @@
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.U2D;
 
 [CreateAssetMenu(fileName = "CollectibleManager", menuName = "Managers/Collectible Manager")]
 public class CollectibleManagerSO : ScriptableObject

@@ -1,9 +1,4 @@
-using System.Collections;
-using System.Collections.Generic;
-using UnityEditor.Animations;
 using UnityEngine;
-using UnityEngine.EventSystems;
-using UnityEngine.UIElements;
 
 [CreateAssetMenu(fileName = "BuletManager", menuName = "Managers/Bullet Manager")]
 public class BulletManagerSO : ScriptableObject
